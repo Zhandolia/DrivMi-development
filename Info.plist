@@ -1,0 +1,4 @@
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Need location access to show you on the map</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Need location access to track your position</string>
