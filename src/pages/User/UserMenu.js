@@ -308,16 +308,16 @@
 // export default App;
 
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, PermissionsAndroid, Platform } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import { View, StyleSheet, Platform, PermissionsAndroid } from 'react-native';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 const UserMenu = () => {
   const [position, setPosition] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitudeDelta: 0.015,
+    longitudeDelta: 0.0121,
   });
 
   useEffect(() => {
@@ -327,22 +327,19 @@ const UserMenu = () => {
           const granted = await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
             {
-              title: "Location Access Required",
-              message: "This app needs to access your location",
+              title: 'Location Access Required',
+              message: 'This app needs to access your location',
             },
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            // Permission granted, proceed to get the location
             watchLocation();
           } else {
-            // Permission denied
-            console.error("Location permission denied");
+            console.error('Location permission denied');
           }
         } catch (err) {
           console.warn(err);
         }
       } else {
-        // iOS and other platforms
         watchLocation();
       }
     };
@@ -358,6 +355,8 @@ const UserMenu = () => {
           ...position,
           latitude,
           longitude,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
         });
       },
       error => console.error(error),
@@ -368,8 +367,9 @@ const UserMenu = () => {
   return (
     <View style={styles.container}>
       <MapView
+        provider={PROVIDER_GOOGLE} // Add this line to use Google Maps
         style={styles.map}
-        initialRegion={position}
+        region={position}
         showsUserLocation={true}
         followUserLocation={true}
       >

@@ -10,6 +10,9 @@
 {
   self.moduleName = @"main";
 
+  // Provide the Google Maps API Key
+  [GMSServices provideAPIKey:@"AIzaSyDW9niFBnKabEUdXyBabtRaXUxeLQy9o2k"];
+
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
